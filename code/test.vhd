@@ -11,6 +11,9 @@ entity gray_counter is
         q		: out integer range 0 to 255
     );
 end entity;
+type MEMORY is array (0 to 255) of integer range 0 to 127;
+type MEME is array (0 to 13120, 1 downto 0) of integer range 0 to 127;
+type SORT is array (0 to 15) of integer range 0 to 127;
 
 architecture rtl of gray_counter is
 begin
@@ -20,7 +23,13 @@ begin
         variable    calc   : std_logic;
         variable    div2   : integer range 0 to 13120;
         variable    mul3   : integer range 0 to 13120;
+        variable    MEMO   : MEMORY;
+        variable    MEM    : MEME;
+        variable    M_SORT : SORT;
+  
     begin
+        if(MEMO(data) /= 0) q<=MEMO(data);
+        
         if (rising_edge(clk) and go = '1') then
             dreg := data;
             counter := 0;
