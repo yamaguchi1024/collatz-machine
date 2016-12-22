@@ -11,7 +11,6 @@ entity gray_counter is
         q		: out integer range 0 to 255
     );
 end entity;
-
 architecture rtl of gray_counter is
 begin
     process (clk)
@@ -21,6 +20,7 @@ begin
         variable    div2   : integer range 0 to 13120;
         variable    mul3   : integer range 0 to 13120;
     begin
+        
         if (rising_edge(clk) and go = '1') then
             dreg := data;
             counter := 0;
