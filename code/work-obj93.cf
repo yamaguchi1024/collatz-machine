@@ -1,0 +1,4 @@
+v 4
+file . "test.vhd" "b59721e3e914c75bdf7facaf576ca2e96f4bc10d" "20161222113449.030":
+  entity gray_counter at 1( 0) + 0 on 11;
+  architecture rtl of gray_counter at 15( 234) + 0 on 12;
