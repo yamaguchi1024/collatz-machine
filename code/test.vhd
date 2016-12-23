@@ -12,6 +12,7 @@ entity gray_counter is
     );
 end entity;
 architecture rtl of gray_counter is
+   -- signal hoge;
 begin
     process (clk)
         variable    dreg   : integer range 0 to 13120;
@@ -20,29 +21,28 @@ begin
         variable    div2   : integer range 0 to 13120;
         variable    mul3   : integer range 0 to 13120;
     begin
-        
-        if (rising_edge(clk) and go = '1') then
-            dreg := data;
-            counter := 0;
-            calc := '1';
-            div2 := dreg / 2;
-            mul3 := (dreg * 3) + 1;
-        end if;
 
-        while (dreg /= 1) loop
-            if(rising_edge(clk) and calc = '1') then
-                if dreg mod 2 = 0 then
-                    dreg := div2;
-                else
-                    dreg := mul3;
-                end if;
-
+        if (rising_edge(clk)) then
+            if(go = '1') then
+                dreg := data;
+                counter := 0;
+                calc := '1';
                 div2 := dreg / 2;
                 mul3 := (dreg * 3) + 1;
-
             end if;
-        end loop;
-
-        q <= counter;
+            if(calc = '1') then
+                if(dreg = 1) then
+                    q <= counter;
+                else
+                    if dreg mod 2 = 0 then
+                        dreg := div2;
+                    else
+                        dreg := mul3;
+                    end if;
+                    div2 := dreg / 2;
+                    mul3 := (dreg * 3) + 1;
+                end if;
+            end if;
+        end if;
     end process;
 end rtl;
